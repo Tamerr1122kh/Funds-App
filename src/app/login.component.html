@@ -1,0 +1,32 @@
+﻿<div class="container">
+  <h2>Login</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+    <!-- Username -->
+    <div class="form-group">
+      <label>Username</label><br/>
+      <input formControlName="username" placeholder="Enter username" />
+      <div *ngIf="form.controls.username.touched && form.controls.username.invalid" class="error">
+        <div *ngIf="form.controls.username.errors?.['required']">Username is required.</div>
+        <div *ngIf="form.controls.username.errors?.['minlength']">Must be at least 3 characters.</div>
+      </div>
+    </div>
+
+    <!-- Password -->
+    <div class="form-group">
+      <label>Password</label><br/>
+      <input [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Enter password" />
+      <button type="button" (click)="toggleShow()" class="toggle">
+        {{ showPassword ? 'Hide' : 'Show' }}
+      </button>
+      <div *ngIf="form.controls.password.touched && form.controls.password.invalid" class="error">
+        <div *ngIf="form.controls.password.errors?.['required']">Password is required.</div>
+        <div *ngIf="form.controls.password.errors?.['minlength']">Must be at least 6 characters.</div>
+      </div>
+    </div>
+
+    <button class="btn" type="submit" [disabled]="form.invalid || loading">
+      {{ loading ? 'Signing in…' : 'Sign in' }}
+    </button>
+  </form>
+</div>
